@@ -2,67 +2,67 @@
     {
         "id": 1,
         "user_name": "akash",
-        "user_dp": "/assets/images/man1.jpg",
-        "user_stories": ["/assets/images/man1.jpg", "/assets/images/girl1.jpg"]
+        "user_dp": "/assets/images/profiles/man1.jpg",
+        "user_stories": ["/assets/images/stories/superhero-no-gesture.jpg", "/assets/images/stories/superhero-heart-pain.jpg"]
     },
     {
         "id": 2,
         "user_name": "naincy",
-        "user_dp": "/assets/images/girl1.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/girl1.jpg",
+        "user_stories": ["/assets/images/stories/relaxation-ritual.jpg"]
     },
     {
         "id": 3,
         "user_name": "supriya",
-        "user_dp": "/assets/images/girl2.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/girl2.jpg",
+        "user_stories": ["/assets/images/stories/golden-retriever.jpg"]
     },
     {
         "id": 4,
         "user_name": "sumit",
-        "user_dp": "/assets/images/man1.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/man2.jpg",
+        "user_stories": ["/assets/images/stories/beautiful-colorful-trees.jpg", "/assets/images/stories/kinkakuji-temple.jpg"]
     },
     {
         "id": 5,
         "user_name": "arun",
-        "user_dp": "/assets/images/man2.jpg",
-        "user_stories": ["/assets/images/man2.jpg"]
+        "user_dp": "/assets/images/profiles/man3.jpg",
+        "user_stories": ["/assets/images/profiles/man2.jpg"]
     },
     {
         "id": 6,
         "user_name": "rai",
-        "user_dp": "/assets/images/man2.jpg",
-        "user_stories": ["/assets/images/girl2.jpg"]
+        "user_dp": "/assets/images/profiles/girl3.jpg",
+        "user_stories": ["/assets/images/stories/kashmir.jpg"]
     },
     {
         "id": 7,
         "user_name": "shuvam",
-        "user_dp": "/assets/images/man2.jpg",
-        "user_stories": ["/assets/images/girl1.jpg"]
+        "user_dp": "/assets/images/profiles/man4.jpg",
+        "user_stories": ["/assets/images/stories/shore-mountain.jpg"]
     },
     {
         "id": 8,
         "user_name": "akshita",
-        "user_dp": "/assets/images/girl1.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/girl1.jpg",
+        "user_stories": ["/assets/images/profiles/man1.jpg"]
     },
     {
         "id": 9,
         "user_name": "hari",
-        "user_dp": "/assets/images/man2.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/man2.jpg",
+        "user_stories": ["/assets/images/profiles/man1.jpg"]
     },
     {
         "id": 10,
         "user_name": "muskan",
-        "user_dp": "/assets/images/girl2.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/girl2.jpg",
+        "user_stories": ["/assets/images/profiles/man1.jpg"]
     },
     {
         "id": 11,
         "user_name": "rahul",
-        "user_dp": "/assets/images/man1.jpg",
-        "user_stories": ["/assets/images/man1.jpg"]
+        "user_dp": "/assets/images/profiles/man1.jpg",
+        "user_stories": ["/assets/images/profiles/man1.jpg"]
     }
 ]
