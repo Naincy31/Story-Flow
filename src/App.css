@@ -65,6 +65,15 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
+.story-close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  z-index: 9999;
+  cursor: pointer;
+}
+
 .story-display-container {
   position: relative;
   width: 100vw;
@@ -72,30 +81,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.story-image {
-  max-width: 95vw;
-  max-height: 85vh;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.overlay {
-  position: absolute;
-  width: 50%;
-  height: 100%;
-  top: 0;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.left {
-  left: 0;
-}
-
-.right {
-  right: 0;
 }
 
 .story-bar {
@@ -115,6 +100,30 @@
 
 .story-bar .story-item-bar.active {
   background-color: #fff;
+}
+
+.story-image {
+  max-width: 95vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
 }
 
 /* Mobile Specific Adjustments */

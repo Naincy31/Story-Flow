@@ -5,11 +5,10 @@ interface StoryViewProps {
     user: UserStory;
     onClose: () => void;
     markUserAsSeen: (userId: number) => void;
-    setSelectedUser: (user: UserStory) => void;
     onStoryEnd: () => void;
 }
 
-const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, setSelectedUser, onStoryEnd }) => {
+const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, onStoryEnd }) => {
     const [storyIndex, setStoryIndex] = useState(0)
     const totalStories = user.user_stories.length
 
@@ -24,7 +23,7 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, se
         }, 5000);
 
         return () => clearTimeout(timer);
-    }, [storyIndex, totalStories, onClose, markUserAsSeen, onStoryEnd])
+    }, [storyIndex, totalStories, markUserAsSeen, onStoryEnd])
 
     const goPrev = () => {
         if (storyIndex <= 0) return;
@@ -46,6 +45,10 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, se
 
     return (
         <div className="StoryView">
+            <span onClick={() => {
+                if(storyIndex === (totalStories - 1)) markUserAsSeen(user.id)
+                onClose()
+            }} className='story-close-icon'>X</span>
             <div className="overlay left" onClick={goPrev}></div>
             <div className="story-display-container">
                 <div className="story-bar" style={{ gridTemplateColumns: `repeat(${totalStories}, 1fr)` }}>

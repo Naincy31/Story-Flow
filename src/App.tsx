@@ -34,6 +34,11 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        console.log(selectedUser);
+        
+    }, [selectedUser])
+
     return (
         <div className="App">
             <StoryList onSelectUser={setSelectedUser} seenUsers={seenUsers} />
