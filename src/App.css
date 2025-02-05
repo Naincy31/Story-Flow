@@ -129,23 +129,6 @@
   object-fit: cover;
 }
 
-.overlay {
-  position: absolute;
-  width: 50%;
-  height: 100%;
-  top: 0;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.left {
-  left: 0;
-}
-
-.right {
-  right: 0;
-}
-
 /* Mobile Specific Adjustments */
 @media (max-width: 600px) {
   .StoryList {
