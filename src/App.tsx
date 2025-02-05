@@ -1,18 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import StoryList from './components/StoryList.tsx';
 import StoryView from './components/StoryView.tsx';
-import { UserStory } from './types.ts';
+import { UserStory } from './types';
 
 function App() {
-  const [selectedUser, setSelectedUser] = useState<UserStory | null>(null)
+    const [users, setUsers] = useState<UserStory[]>([])
+    const [selectedUser, setSelectedUser] = useState<UserStory | null>(null)
+    const [seenUsers, setSeenUsers] = useState<Set<number>>(new Set())
 
-  return (
-    <div className="App">
-        <StoryList onSelectUser={setSelectedUser}/>
-        {selectedUser && <StoryView user={selectedUser} onClose={() => setSelectedUser(null)}/>}
-    </div>
-  );
+    useEffect(() => {
+        fetch('/data/users.json')
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch((err) => console.error('Error loading users data: ', err))
+    }, []);
+
+    const markUserAsSeen = (userId: number) => {
+        setSeenUsers((prevSeenUsers) => {
+            const updatedSeenUsers = new Set(prevSeenUsers)
+            updatedSeenUsers.add(userId)
+            return updatedSeenUsers
+        });
+    };
+
+    const handleStoryEnd = () => {
+        const currentUserIndex = users.findIndex((user) => user.id === selectedUser?.id)
+        const nextUserIndex = currentUserIndex + 1;
+        if (nextUserIndex < users.length) {
+            setSelectedUser(users[nextUserIndex]);
+        } else {
+            setSelectedUser(null)
+        }
+    };
+
+    return (
+        <div className="App">
+            <StoryList onSelectUser={setSelectedUser} seenUsers={seenUsers} />
+            {selectedUser && (
+                <StoryView
+                    user={selectedUser}
+                    onClose={() => setSelectedUser(null)}
+                    markUserAsSeen={markUserAsSeen}
+                    setSelectedUser={setSelectedUser}
+                    onStoryEnd={handleStoryEnd}
+                />
+            )}
+        </div>
+    );
 }
 
 export default App;

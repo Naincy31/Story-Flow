@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { UserStory } from '../types.ts';
+import { UserStory } from '../types';
 
 interface StoryViewProps {
     user: UserStory;
     onClose: () => void;
+    markUserAsSeen: (userId: number) => void;
+    setSelectedUser: (user: UserStory) => void;
+    onStoryEnd: () => void;
 }
 
-const StoryView: React.FC<StoryViewProps> = ({ user, onClose}) => {
+const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, setSelectedUser, onStoryEnd }) => {
     const [storyIndex, setStoryIndex] = useState(0)
     const totalStories = user.user_stories.length
 
@@ -15,12 +18,13 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose}) => {
             if (storyIndex < totalStories - 1) {
                 setStoryIndex(prev => prev + 1)
             } else {
-                onClose()
+                markUserAsSeen(user.id);
+                onStoryEnd()
             }
         }, 5000);
 
         return () => clearTimeout(timer);
-    }, [storyIndex, totalStories, onClose])
+    }, [storyIndex, totalStories, onClose, markUserAsSeen, onStoryEnd])
 
     const goPrev = () => {
         if (storyIndex <= 0) return;
@@ -31,18 +35,14 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose}) => {
         if (storyIndex < totalStories - 1) {
             setStoryIndex(prev => prev + 1)
         } else {
-            onClose()
+            markUserAsSeen(user.id);
+            onStoryEnd()
         }
     };
 
     const goToStory = (index: number) => {
         setStoryIndex(index)
     };
-
-    useEffect(() => {
-        console.log(user.user_stories);
-        
-    }, [user])
 
     return (
         <div className="StoryView">
@@ -60,4 +60,4 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose}) => {
     );
 };
 
-export default StoryView;
+export default StoryView
