@@ -56,6 +56,10 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, on
                         <span key={index} className={`story-item-bar ${index <= storyIndex ? 'active' : ''}`} onClick={() => goToStory(index)}></span>
                     ))}
                 </div>
+                <div className="user-story-info">
+                    <img src={user.user_dp} alt={user.user_name} className="user-dp" />
+                    <p className="story-user-name">{user.user_name}</p>
+                </div>
                 <img src={user.user_stories[storyIndex]} alt={`Story ${storyIndex + 1}`} className="story-image" />
             </div>
             <div className="overlay right" onClick={goNext}></div>
