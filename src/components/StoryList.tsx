@@ -12,7 +12,7 @@ const StoryList: React.FC = () => {
     });
 
     return (
-        <div className="StoryList">
+        <div className="story-list">
             {sortedUsers.map((user) => (
                <StoryItem key={user.id} user={user} onSelectUser={setSelectedUser} seenUsers={seenUsers} />
             ))}

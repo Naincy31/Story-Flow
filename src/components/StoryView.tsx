@@ -43,7 +43,7 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, us
     };
 
     return (
-        <div className="StoryView" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+        <div className="story-view" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <span onClick={() => {
                 if (storyIndex === (totalStories - 1)) markUserAsSeen(user.id)
                 onClose()

@@ -9,16 +9,22 @@ function App() {
 
     return (
         <div className="App">
-            <StoryList />
-            {selectedUser && (
-                <StoryView
-                    user={selectedUser}
-                    users={users}
-                    onClose={() => setSelectedUser(null)}
-                    markUserAsSeen={markUserAsSeen}
-                    setSelectedUser={setSelectedUser}
-                />
-            )}
+            {
+                selectedUser ? 
+                (
+                    <StoryView
+                        user={selectedUser}
+                        users={users}
+                        onClose={() => setSelectedUser(null)}
+                        markUserAsSeen={markUserAsSeen}
+                        setSelectedUser={setSelectedUser}
+                    />
+                )
+
+                :
+
+                <StoryList />
+            }
         </div>
     );
 }
