@@ -10,9 +10,15 @@ export const useStoryNavigation = (
     const [loading, setLoading] = useState(true)
     const totalStories = user.user_stories.length
 
+    // Reset state when user changes
+    useEffect(() => {
+        setStoryIndex(0)
+        setLoading(true)
+    }, [user.id])
+
     useEffect(() => {
         setLoading(true)
-    }, [storyIndex, user])
+    }, [storyIndex])
 
     useEffect(() => {
         let timer: NodeJS.Timeout

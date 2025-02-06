@@ -49,20 +49,8 @@
     },
     {
         "id": 9,
-        "user_name": "hari",
-        "user_dp": "/assets/images/profiles/man2.jpg",
-        "user_stories": ["/assets/images/profiles/man1.jpg"]
-    },
-    {
-        "id": 10,
-        "user_name": "muskan",
-        "user_dp": "/assets/images/profiles/girl2.jpg",
-        "user_stories": ["/assets/images/profiles/man1.jpg"]
-    },
-    {
-        "id": 11,
         "user_name": "rahul",
         "user_dp": "/assets/images/profiles/man1.jpg",
-        "user_stories": ["/assets/images/profiles/man1.jpg"]
+        "user_stories": ["/assets/images/stories/kashmir.jpg"]
     }
 ]
