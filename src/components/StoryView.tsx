@@ -1,55 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { UserStory } from '../types';
+import { useStoryNavigation } from '../hooks/useStoryNavigation.ts';
+import { useHandleStoryEnd } from '../hooks/useHandleStoryEnd.ts';
 
 interface StoryViewProps {
     user: UserStory;
+    users: UserStory[];
     onClose: () => void;
     markUserAsSeen: (userId: number) => void;
-    onStoryEnd: () => void;
+    setSelectedUser: (user: UserStory | null) => void;
 }
 
-const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, onStoryEnd }) => {
-    const [storyIndex, setStoryIndex] = useState(0)
+const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, users, setSelectedUser }) => {
+    const { handleStoryEnd } = useHandleStoryEnd(users, user, setSelectedUser)
+    const { storyIndex, goPrev, goNext, goToStory } = useStoryNavigation(user, markUserAsSeen, handleStoryEnd)
     const totalStories = user.user_stories.length
 
-    let touchStartY = 0;
-    let touchStartX = 0;
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            if (storyIndex < totalStories - 1) {
-                setStoryIndex(prev => prev + 1)
-            } else {
-                markUserAsSeen(user.id)
-                onStoryEnd()
-            }
-        }, 5000)
-
-        return () => clearTimeout(timer);
-    }, [storyIndex, totalStories, markUserAsSeen, onStoryEnd])
-
-    const goPrev = () => {
-        if (storyIndex <= 0) return;
-        setStoryIndex(prev => prev - 1)
-    }
-
-    const goNext = () => {
-        if (storyIndex < totalStories - 1) {
-            setStoryIndex(prev => prev + 1)
-        } else {
-            markUserAsSeen(user.id)
-            onStoryEnd()
-        }
-    }
-
-    const goToStory = (index: number) => {
-        setStoryIndex(index)
-    }
+    let touchStartY = 0
+    let touchStartX = 0
 
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartY = e.touches[0].clientY
         touchStartX = e.touches[0].clientX
-    }
+    };
 
     const handleTouchEnd = (e: React.TouchEvent) => {
         const touchEndY = e.changedTouches[0].clientY
@@ -57,22 +30,22 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, on
         const deltaY = touchEndY - touchStartY
         const deltaX = touchEndX - touchStartX
 
-        if(deltaY > 50){
-            if(storyIndex === totalStories - 1) markUserAsSeen(user.id)
+        if (deltaY > 50) {
+            if (storyIndex === totalStories - 1) markUserAsSeen(user.id)
             onClose()
         }
 
-        if(deltaX > 50){
+        if (deltaX > 50) {
             goPrev()
-        } else if(deltaX < -50){
+        } else if (deltaX < -50) {
             goNext()
         }
-    }
+    };
 
     return (
         <div className="StoryView" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <span onClick={() => {
-                if(storyIndex === (totalStories - 1)) markUserAsSeen(user.id)
+                if (storyIndex === (totalStories - 1)) markUserAsSeen(user.id)
                 onClose()
             }} className='story-close-icon'>X</span>
             <div className="story-display-container">
@@ -90,7 +63,7 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, on
                     alt={`Story ${storyIndex + 1}`} 
                     className="story-image" 
                     onClick={(e) => {
-                        if(e.clientX < window.innerWidth / 2) goPrev()
+                        if (e.clientX < window.innerWidth / 2) goPrev()
                         else goNext()
                     }}
                 />

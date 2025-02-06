@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { UserStory } from '../types';
+import React, {useContext} from 'react';
+import { StoryContext } from '../context/StoryContext.tsx';
+import StoryItem from './StoryItem.tsx';
 
-const StoryList: React.FC<{ onSelectUser: (user: UserStory) => void; seenUsers: Set<number> }> = ({ onSelectUser, seenUsers }) => {
-    const [users, setUsers] = useState<UserStory[]>([])
-
-    useEffect(() => {
-        
-        fetch('/data/users.json')
-            .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((err) => console.error('Error loading stories: ', err))
-    }, []);
-
-    const handleUserSelection = (user: UserStory) => {
-        onSelectUser(user)
-    };
+const StoryList: React.FC = () => {
+    const { users, seenUsers, setSelectedUser } = useContext(StoryContext)
 
     const sortedUsers = [...users].sort((a, b) => {
         const aSeen = seenUsers.has(a.id)
@@ -25,15 +14,10 @@ const StoryList: React.FC<{ onSelectUser: (user: UserStory) => void; seenUsers: 
     return (
         <div className="StoryList">
             {sortedUsers.map((user) => (
-                <div key={user.id} className="story-item" onClick={() => handleUserSelection(user)}>
-                    <div className={`story-image-container ${seenUsers.has(user.id) ? 'seen' : ''}`}>
-                        <img src={user.user_dp} alt={user.user_name} className={seenUsers.has(user.id) ? 'gray-scale' : ''} />
-                    </div>
-                    <p>{user.user_name}</p>
-                </div>
+               <StoryItem key={user.id} user={user} onSelectUser={setSelectedUser} seenUsers={seenUsers} />
             ))}
         </div>
-    );
-};
+    )
+}
 
 export default StoryList;

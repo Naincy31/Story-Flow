@@ -1,54 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import StoryList from './components/StoryList.tsx';
 import StoryView from './components/StoryView.tsx';
-import { UserStory } from './types';
+import { StoryContext } from './context/StoryContext.tsx';
 
 function App() {
-    const [users, setUsers] = useState<UserStory[]>([])
-    const [selectedUser, setSelectedUser] = useState<UserStory | null>(null)
-    const [seenUsers, setSeenUsers] = useState<Set<number>>(new Set())
-
-    useEffect(() => {
-        fetch('/data/users.json')
-            .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((err) => console.error('Error loading users data: ', err))
-    }, []);
-
-    const markUserAsSeen = (userId: number) => {
-        setSeenUsers((prevSeenUsers) => {
-            const updatedSeenUsers = new Set(prevSeenUsers)
-            updatedSeenUsers.add(userId)
-            return updatedSeenUsers
-        });
-    };
-
-    const handleStoryEnd = () => {
-        const currentUserIndex = users.findIndex((user) => user.id === selectedUser?.id)
-        const nextUserIndex = currentUserIndex + 1;
-        if (nextUserIndex < users.length) {
-            setSelectedUser(users[nextUserIndex]);
-        } else {
-            setSelectedUser(null)
-        }
-    };
-
-    useEffect(() => {
-        console.log(selectedUser);
-        
-    }, [selectedUser])
+    const { selectedUser, setSelectedUser, markUserAsSeen, users } = useContext(StoryContext)
 
     return (
         <div className="App">
-            <StoryList onSelectUser={setSelectedUser} seenUsers={seenUsers} />
+            <StoryList />
             {selectedUser && (
                 <StoryView
                     user={selectedUser}
+                    users={users}
                     onClose={() => setSelectedUser(null)}
                     markUserAsSeen={markUserAsSeen}
                     setSelectedUser={setSelectedUser}
-                    onStoryEnd={handleStoryEnd}
                 />
             )}
         </div>
