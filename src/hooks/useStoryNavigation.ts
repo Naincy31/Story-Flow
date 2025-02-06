@@ -7,20 +7,28 @@ export const useStoryNavigation = (
     onStoryEnd: () => void
 ) => {
     const [storyIndex, setStoryIndex] = useState(0)
+    const [loading, setLoading] = useState(true)
     const totalStories = user.user_stories.length
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (storyIndex < totalStories - 1) {
-                setStoryIndex(prev => prev + 1)
-            } else {
-                markUserAsSeen(user.id)
-                onStoryEnd()
-            }
-        }, 5000)
+        setLoading(true)
+    }, [storyIndex, user])
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout
+        if(!loading){
+            timer = setTimeout(() => {
+                if (storyIndex < totalStories - 1) {
+                    setStoryIndex(prev => prev + 1)
+                } else {
+                    markUserAsSeen(user.id)
+                    onStoryEnd()
+                }
+            }, 5000)
+        }
 
         return () => clearTimeout(timer)
-    }, [storyIndex, totalStories, markUserAsSeen, onStoryEnd])
+    }, [storyIndex, totalStories, markUserAsSeen, onStoryEnd, loading])
 
     const goPrev = () => {
         if (storyIndex > 0) {
@@ -41,10 +49,16 @@ export const useStoryNavigation = (
         setStoryIndex(index)
     }
 
+    const handleImageLoad = () => {
+        setLoading(false)
+    }
+
     return {
         storyIndex,
         goPrev,
         goNext,
         goToStory,
+        handleImageLoad,
+        loading
     }
 }

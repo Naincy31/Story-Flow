@@ -11,9 +11,10 @@ interface StoryViewProps {
     setSelectedUser: (user: UserStory | null) => void;
 }
 
+
 const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, users, setSelectedUser }) => {
     const { handleStoryEnd } = useHandleStoryEnd(users, user, setSelectedUser)
-    const { storyIndex, goPrev, goNext, goToStory } = useStoryNavigation(user, markUserAsSeen, handleStoryEnd)
+    const { storyIndex, goPrev, goNext, goToStory, loading, handleImageLoad } = useStoryNavigation(user, markUserAsSeen, handleStoryEnd)
     const totalStories = user.user_stories.length
 
     let touchStartY = 0
@@ -22,7 +23,7 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, us
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartY = e.touches[0].clientY
         touchStartX = e.touches[0].clientX
-    };
+    }
 
     const handleTouchEnd = (e: React.TouchEvent) => {
         const touchEndY = e.changedTouches[0].clientY
@@ -40,8 +41,8 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, us
         } else if (deltaX < -50) {
             goNext()
         }
-    };
-
+    }
+    
     return (
         <div className="story-view" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <span onClick={() => {
@@ -58,14 +59,17 @@ const StoryView: React.FC<StoryViewProps> = ({ user, onClose, markUserAsSeen, us
                     <img src={user.user_dp} alt={user.user_name} className="user-dp" />
                     <p className="story-user-name">{user.user_name}</p>
                 </div>
+                {loading && <div className="loading-spinner"></div>}
                 <img 
                     src={user.user_stories[storyIndex]} 
                     alt={`Story ${storyIndex + 1}`} 
                     className="story-image" 
+                    onLoad={handleImageLoad}
                     onClick={(e) => {
                         if (e.clientX < window.innerWidth / 2) goPrev()
                         else goNext()
                     }}
+                    style={{ display: loading ? 'none' : 'block' }}
                 />
             </div>
         </div>
