@@ -1,51 +1,104 @@
-<<<<<<< HEAD
 # Story-Flow
-Instagram stories feature built with React.js and TypeScript
-=======
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Instagram stories feature built with React.js and TypeScript.
 
-## Available Scripts
+## Deployment
 
-In the project directory, you can run:
+I've deployed the application here: https://story-flow-murex.vercel.app/. Currently, the 'main' branch is deployed, containing only the initial setup. As per the assignment guidelines, further changes have been made in a separate feature branch. A member of the STAGE team will review and approve the PR before it is merged into the main branch.
 
-### `npm start`
+## Instructions for Setting Up and Running the Application
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node.js (v14 or later)
+- npm (v6 or later)
 
-### `npm test`
+### Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+```sh
+git clone https://github.com/Naincy31/Story-Flow.git
+cd story-flow
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install Dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+npm install
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Running the Application
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To start the application in development mode, run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```sh
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Open http://localhost:3000 to view it in the browser.
 
-## Learn More
+### Running Tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run the tests, use the following command:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
->>>>>>> c52052f (Building Story Flow - Initial Project Structure)
+```sh
+npm test
+```
+
+### Explanation of Design Choices
+
+The goal was to replicate the Instagram Stories experience, where users can view a horizontally scrollable list of stories, tap on a user to view their stories, and navigate between them manually or automatically.
+
+#### Data Structure
+
+Defined a structured format for user stories for easy retrieval and management of stories:
+
+- id (unique identifier)
+- user_name (user's name)
+- user_dp (user's profile picture)
+- user_stories (array of image URLs for each story)
+
+#### Component Structure:
+
+1. StoryList Component: Renders the horizontally scrollable list of users.
+2. StoryView Component: Displays the selected user’s stories.
+3. The StoryView component is rendered only when a user is selected, improving performance by not mounting unnecessary components.
+
+#### User Experience Enhancements:
+
+1. Automatic Navigation:
+
+   - Stories auto-advance every 5 seconds.
+   - When all stories of a user are seen, move to the next user's stories.
+
+2. Manual Navigation:
+
+   - Tapping the left moves to the previous story.
+   - Tapping the right moves to the next story.
+
+3. Reordering Seen Users:
+
+   - Once a user's stories are viewed, they are marked as seen and moved to the end of the list, mimicking Instagram's behavior.
+
+4. Swipe-Down to Exit:
+   - Swiping down dismisses the story view, just like on Instagram.
+
+##### Performance & Optimization:
+
+1. Lazy Loading & Loading States
+
+   - Implemented a loading state to show a loading icon until the story image is fully loaded.
+   - This ensures a smooth user experience by preventing blank screens.
+
+2. Efficient State Management
+
+   - Used React Context API to manage global state:
+     - User Stories
+     - Seen Status
+
+3. Reusable & Modular Code
+   - Created custom hooks to encapsulate reusable logic (e.g., handling auto-advance, tracking seen status).
+   - Simplified components by separating concerns, making the code easier to maintain and scale.
