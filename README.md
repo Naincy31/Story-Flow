@@ -4,7 +4,7 @@ Instagram stories feature built with React.js and TypeScript.
 
 ## Deployment
 
-I've deployed the application here: https://story-flow-murex.vercel.app/. Currently, the 'main' branch is deployed, containing only the initial setup. As per the assignment guidelines, further changes have been made in a separate feature branch. A member of the STAGE team will review and approve the PR before it is merged into the main branch.
+Deployed application: [https://story-flow-murex.vercel.app/] (Built exclusively for mobile, as per assignment requirements).
 
 ## Instructions for Setting Up and Running the Application
 
